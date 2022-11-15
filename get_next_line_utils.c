@@ -7,11 +7,11 @@ char	*ft_strdup(char *str, int n, int *size)
 
 	*size += n;
 	printf("size: %d | next_line: %d\n", *size, n);
-	ret = (char *)malloc((n + 1) * sizeof(char));
+	ret = (char *)malloc((n) * sizeof(char));
 	if (!ret)
 		return (NULL);
 	i = 0;
-	while (i < n)
+	while (i < n - 1)
 	{
 		ret[i] = str[i];
 		printf("%s | %s\n", ret, str);
