@@ -6,6 +6,7 @@ char	*ft_strdup(char *str, int n, int *size)
 	int		i;
 
 	*size += n;
+	printf("size: %d | next_line: %d\n", *size, n);
 	ret = (char *)malloc((n + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
@@ -13,6 +14,7 @@ char	*ft_strdup(char *str, int n, int *size)
 	while (i < n)
 	{
 		ret[i] = str[i];
+		printf("%s | %s\n", ret, str);
 		i++;
 	}
 	ret[i] = '\0';
