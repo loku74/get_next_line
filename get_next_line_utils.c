@@ -22,7 +22,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-static void	*free_all(char **tab, unsigned int nelem)
+void	*free_all(char **tab, unsigned int nelem)
 {
 	unsigned int	i;
 
@@ -47,21 +47,27 @@ static size_t	next_c(char *str, char c)
 	return (i);
 }
 
-static int	count_words(char *str, char c)
+unsigned int	count_words(char *str, char c)
 {
 	size_t			i;
+	size_t			len_str;
 	unsigned int	count;
 
+	len_str = ft_strlen(str);
 	count = 1;
 	i = 0;
 	while (str[i] == c)
 		i++;
-	if (i == ft_strlen(str))
+	if (i == len_str)
 		return (count);
-	while (str[i + 1])
+	while (i < len_str)
 	{
-		if (str[i] == c && str[i + 1] != c)
+		if (str[i] != c)
+		{
 			count++;
+			while (str[i] != c)
+				i++;
+		}
 		i++;
 	}
 	return (count);
@@ -99,7 +105,7 @@ char	**ft_split(char *str, char c)
 
 	if (!str)
 		return (NULL);
-	tab = (char **)malloc(sizeof(char *) * ((count_words(str, c) + 1)));
+	tab = (char **)malloc(sizeof(char *) * ((count_words(str, c))));
 	if (!tab)
 		return (NULL);
 	return (ft_strsplit(tab, str, c));

@@ -27,4 +27,5 @@ char *get_next_line(int fd)
 	}
 	line++;
 	return (tab[line]);
+	return (NULL);
 }
