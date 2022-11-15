@@ -5,8 +5,8 @@
 # include <unistd.h>
 
 char 			*get_next_line(int fd);
-char			**ft_split(char *str, char c);
-unsigned int	count_words(char *str, char c);
-void			*free_all(char **tab, unsigned int nelem);
+
+int		next_line(char *buf);
+char	*ft_strdup(char *str, int n, int *size);
 
 #endif
