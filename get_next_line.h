@@ -3,15 +3,17 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+// IL FAUT L'ENLEVER VANT DE PUSH SINON BPOUMEAU VA TE NORMED
 # include <stdio.h>
+// IL FAUT L'ENLEVER VANT DE PUSH SINON BPOUMEAU VA TE NORMED
 
-char 			*get_next_line(int fd);
+char	*get_next_line(int fd);
 
-int		ft_strlen(char *str);
 char	*ft_strjoin(char *s1, char *s2);
-int		ft_strchr(char *str, char c);
-
-void	ft_treat_right_side(char **str);
-char	*ft_treat_left_side(char *str);
+int		ft_strlen(char *str);
+int		is_char_in_str(char *str, char c);
+char	*format(char *str);
+char	*format_str(char **str);
 
 #endif

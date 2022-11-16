@@ -2,12 +2,12 @@
 
 char *get_next_line(int fd)
 {
-	static char *str = NULL;
+	static char	*str = "";
 	char		buf[BUFFER_SIZE + 1];
 	char		*temp;
 	int			b_read;
-	
-	b_read = BUFFER_SIZE;
+
+	b_read = (int)BUFFER_SIZE;
 	if (fd < 0 || b_read <= 0)
 		return (NULL);
 	while (b_read > 0)
@@ -15,14 +15,13 @@ char *get_next_line(int fd)
 		b_read = read(fd, buf, BUFFER_SIZE);
 		if (b_read == -1)
 			return (NULL);
-		buf[BUFFER_SIZE] = '\0';
+		buf[b_read] = '\0';
 		temp = str;
 		str = ft_strjoin(temp, buf);
-		free(temp);
-		if (ft_strchr(str, '\n'))
+		if (is_char_in_str(str, '\n') > 0)
 			break;
 	}
-	temp = ft_treat_left_side(str);
-	ft_treat_right_side(&str);
+	temp = format(str);
+	str = format_str(&str);
 	return (temp);
 }
