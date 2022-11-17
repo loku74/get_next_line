@@ -1,54 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 12:08:49 by lbourniq          #+#    #+#             */
+/*   Updated: 2022/11/17 16:42:51 by lbourniq         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-int	ft_strlen(char *str)
+
+static void	*free_all(char **tab, size_t nelem)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (i < nelem)
+		free(tab[i++]);
+	free(tab);
+	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+static size_t	next_c(char *str, char c)
 {
-	char	*res;
-	int		i;
-	int		res_i;
-	int		res_size;
-
-	res_size = ft_strlen(s1) + ft_strlen(s2) + 1; 
-	res = (char *)malloc(sizeof(char) * res_size);
-	if (!res)
-		return (NULL);
-	i = 0;
-	res_i = 0;
-	while (s1[i])
-		res[res_i++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		res[res_i++] = s2[i++];
-	res[res_i] = '\0';
-	return (res);
-}
-
-int	is_char_in_str(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	f(char *str, char c)
-{
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (str[i])
@@ -60,44 +38,68 @@ static int	f(char *str, char c)
 	return (i);
 }
 
-char	*format(char *str)
+static unsigned int	count_words(char *str, char c)
 {
-	char	*res;
-	int		i;
+	size_t			i;
+	unsigned int	count;
 
-	res = (char *)malloc(sizeof(char) * (f(str, '\n') + 2));
-	if (!res)
-		return (NULL);
+	count = 1;
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] == c)
+		i++;
+	if (i == (size_t)ft_strlen(str))
+		return (count);
+	while (i < (size_t)ft_strlen(str))
 	{
-		res[i] = str[i];
+		if (str[i] != c)
+		{
+			count++;
+			while (i < (size_t)ft_strlen(str))
+			{
+				if (str[i] == c)
+					break ;
+				i++;
+			}
+		}
 		i++;
 	}
-	printf("LA\n");
-	res[i++] = '\n';
-	res[i] = '\0';
-	return (res);
+	return (count);
 }
 
-char	*format_str(char **str)
+static char	**ft_strsplit(char **tab, char *s, char c)
 {
-	char	*res;
-	int		i;
-	int		res_i;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
 	i = 0;
-	while (*str[i] != '\n')
+	j = 0;
+	while (i < (size_t)ft_strlen(s))
+	{
+		if (next_c(&s[i], c))
+		{
+			tab[j] = (char *)malloc(sizeof(char) * (next_c(&s[i], c) + 1));
+			if (!tab[j])
+				return (free_all(tab, j));
+			k = 0;
+			while (next_c(&s[i], c))
+				tab[j][k++] = s[i++];
+			tab[j++][k] = '\0';
+		}
 		i++;
-	i++;
-	res = (char *)malloc(sizeof(char *) * ft_strlen(*(&str[i] + 1)));
-	if (!res)
+	}
+	tab[j] = NULL;
+	return (tab);
+}
+
+char	**ft_split(char *str, char c)
+{
+	char			**tab;
+
+	if (!str)
 		return (NULL);
-	res_i = 0;	
-	while (*str[i])
-		res[res_i++] = *str[i++];
-	res[res_i] = '\0';
-	free(*str);
-	return (res);
-	return (NULL);
+	tab = (char **)malloc(sizeof(char *) * ((count_words(str, c))));
+	if (!tab)
+		return (NULL);
+	return (ft_strsplit(tab, str, c));
 }
