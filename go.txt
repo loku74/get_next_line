@@ -1,0 +1,29 @@
+static buf
+char *line
+si buf 
+line += buf
+{
+	on dup line dans un temp
+	on free line
+	line = strjoin de temp et buf
+	on free temp
+	on return line
+}
+des qu'on sort de la boucle:
+line = line jusqu'au '\n' ou '\0'
+{
+	on strlen jusqu'au '\n' compris + 1 ('\0')
+	on copie line dans temp jusqu'au '\n' compris
+	on null terminante temp
+	on free line
+	on return temp
+}
+et buf = tout ce qu'il y a pres le \n
+{
+	on va jusqu'au '\n' ou jusqu'au '\0' si pas de '\n'
+	on mesure la longueur de ce qu'il y apres dans length
+	on memmove de l'index du \n + 1 au debut de buf
+	on bzero tout ce qu'il y a apres length
+}
+return (line);
+(aucun leak challah)

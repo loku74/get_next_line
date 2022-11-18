@@ -6,100 +6,94 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:49 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/17 16:42:51 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/18 14:45:37 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-static void	*free_all(char **tab, size_t nelem)
+size_t	ft_strlen(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < nelem)
-		free(tab[i++]);
-	free(tab);
-	return (NULL);
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
 }
 
-static size_t	next_c(char *str, char c)
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*res;
+	size_t	res_length;
+	int		i;
+
+	if (!s1 && !s2)
+		return (NULL);
+	res_length = ft_strlen(s1) + ft_strlen(s2) + 1;
+	res = (char *)malloc(sizeof(char) * res_length);
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2 && s2[i])
+	{
+		res[i + ft_strlen(s1)] = s2[i];
+		i++;
+	}
+	res[res_length] = '\0';
+	return (res);
+}
+
+char	*ft_strchr(char *s, int c)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (str[i])
+	if ((char)c == '\0')
+		return ((char *)(s + ft_strlen(s)));
+	while (s[i])
 	{
-		if (str[i] == c)
-			return (i);
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
 		i++;
 	}
-	return (i);
+	return (NULL);
 }
 
-static unsigned int	count_words(char *str, char c)
+char	*ft_strdup(char *str)
 {
-	size_t			i;
-	unsigned int	count;
+	char	*ret;
+	int		i;
 
-	count = 1;
-	i = 0;
-	while (str[i] == c)
-		i++;
-	if (i == (size_t)ft_strlen(str))
-		return (count);
-	while (i < (size_t)ft_strlen(str))
-	{
-		if (str[i] != c)
-		{
-			count++;
-			while (i < (size_t)ft_strlen(str))
-			{
-				if (str[i] == c)
-					break ;
-				i++;
-			}
-		}
-		i++;
-	}
-	return (count);
-}
-
-static char	**ft_strsplit(char **tab, char *s, char c)
-{
-	size_t	i;
-	size_t	j;
-	size_t	k;
-
-	i = 0;
-	j = 0;
-	while (i < (size_t)ft_strlen(s))
-	{
-		if (next_c(&s[i], c))
-		{
-			tab[j] = (char *)malloc(sizeof(char) * (next_c(&s[i], c) + 1));
-			if (!tab[j])
-				return (free_all(tab, j));
-			k = 0;
-			while (next_c(&s[i], c))
-				tab[j][k++] = s[i++];
-			tab[j++][k] = '\0';
-		}
-		i++;
-	}
-	tab[j] = NULL;
-	return (tab);
-}
-
-char	**ft_split(char *str, char c)
-{
-	char			**tab;
-
-	if (!str)
+	ret = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!ret)
 		return (NULL);
-	tab = (char **)malloc(sizeof(char *) * ((count_words(str, c))));
-	if (!tab)
-		return (NULL);
-	return (ft_strsplit(tab, str, c));
+	i = 0;
+	while (str && str[i])
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[i] = '\0';
+	return (ret);
+}
+
+char	*add_buf(char *line, char *buf)
+{
+	char	*res;
+
+	res = ft_strdup(line);
+	if (res)
+		free(line);
+	line = ft_strjoin(res, buf);
+	free(res);
+	return (line);
 }
