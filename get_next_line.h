@@ -6,19 +6,15 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:46 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/18 14:45:37 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 13:32:53 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GETNEXTLINE_H
-# define GETNEXTLINE_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdlib.h>
 # include <unistd.h>
-
-// IL FAUT L'ENLEVER VANT DE PUSH SINON BPOUMEAU VA TE NORMED
-# include <stdio.h>
-// IL FAUT L'ENLEVER VANT DE PUSH SINON BPOUMEAU VA TE NORMED
 
 char	*get_next_line(int fd);
 
@@ -27,5 +23,8 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 char	*ft_strdup(char *str);
 char	*add_buf(char *line, char *buf);
+char	*format_line(char *str);
+void	format_buf(char *str);
+void	*ft_memmove(void *dst, void *src, size_t n);
 
 #endif

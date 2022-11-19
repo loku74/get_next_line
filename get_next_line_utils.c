@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:49 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/18 14:45:37 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 12:35:04 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		res[i + ft_strlen(s1)] = s2[i];
 		i++;
 	}
-	res[res_length] = '\0';
+	res[res_length - 1] = '\0';
 	return (res);
 }
 
