@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:48 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:53:44 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 18:24:10 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*format_line(char *str)
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!line)
-		return (NULL);
+		return (free(str), NULL);
 	k = 0;
 	while (k < i)
 	{
@@ -103,14 +103,14 @@ void	format_buf(char *str)
 char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1];
-	char		*line;
 	static int	b_read = BUFFER_SIZE;
+	char		*line;
 
 	line = NULL;
 	if (buf[0])
 		line = add_buf(line, buf);
-	if (fd < 0 || fd > 1023)
-		return (NULL);
+	if (fd < 0 || fd > OPEN_MAX || read(fd, NULL, 0) != 0)
+		return (ft_bzero(buf, ft_strlen(buf)), NULL);
 	while (b_read > 0 && !ft_strchr(buf, '\n'))
 	{
 		b_read = read(fd, buf, BUFFER_SIZE);
@@ -120,6 +120,6 @@ char	*get_next_line(int fd)
 		line = add_buf(line, buf);
 	}
 	line = format_line(line);
-	format_buf((char *)&buf[0]);
+	format_buf((char *)buf);
 	return (line);
 }

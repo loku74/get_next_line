@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:49 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:52:03 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 17:42:41 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ char	*add_buf(char *line, char *buf)
 	char	*res;
 
 	res = ft_strdup(line);
-	if (res)
-		free(line);
+	if (!res)
+		return (NULL);
+	free(line);
 	line = ft_strjoin(res, buf);
 	free(res);
 	return (line);

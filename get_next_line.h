@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:46 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:40:53 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 18:05:21 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 char	*get_next_line(int fd);
 
