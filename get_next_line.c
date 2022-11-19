@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:48 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:33:18 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 13:40:22 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	format_buf(char *str)
 		length++;
 	i -= length + 1;
 	after = (int)ft_strlen(buf) - i;
-	buf = ft_memmove(&buf[0], &buf[i], (size_t)length);
+	buf = (char *)ft_memmove(&buf[0], &buf[i], (size_t)length);
 	ft_bzero(&buf[after], ft_strlen(&buf[after]));
 }
 

@@ -6,12 +6,16 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:46 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:32:53 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 13:40:53 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>
