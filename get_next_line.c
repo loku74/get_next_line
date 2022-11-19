@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:48 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 13:40:22 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/19 13:53:44 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_memmove(void *dst, void *src, size_t n)
 		return (NULL);
 	if (dst > src)
 	{
-		i = (int)n - 1;
+		i = n - 1;
 		while (n--)
 		{
 			*(char *)(dst + i) = *(char *)(src + i);
