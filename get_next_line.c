@@ -96,7 +96,7 @@ void	format_buf(char *str)
 		length++;
 	i -= length + 1;
 	after = (int)ft_strlen(buf) - i;
-	buf = ft_memmove(&buf[0], &buf[i], (size_t)length);
+	buf = (char *)ft_memmove(&buf[0], &buf[i], (size_t)length);
 	ft_bzero(&buf[after], ft_strlen(&buf[after]));
 }
 
