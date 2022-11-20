@@ -6,7 +6,7 @@
 /*   By: lbourniq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:08:48 by lbourniq          #+#    #+#             */
-/*   Updated: 2022/11/19 18:24:10 by lbourniq         ###   ########lyon.fr   */
+/*   Updated: 2022/11/20 10:57:20 by lbourniq         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*format_line(char *str)
 		line[k] = str[k];
 		k++;
 	}
-	line[i] = '\0';
+	line[k] = '\0';
 	free(str);
 	return (line);
 }
@@ -106,11 +106,11 @@ char	*get_next_line(int fd)
 	static int	b_read = BUFFER_SIZE;
 	char		*line;
 
+	if (fd < 0 || fd > OPEN_MAX || read(fd, NULL, 0) != 0)
+		return (ft_bzero(buf, ft_strlen(buf)), NULL);
 	line = NULL;
 	if (buf[0])
 		line = add_buf(line, buf);
-	if (fd < 0 || fd > OPEN_MAX || read(fd, NULL, 0) != 0)
-		return (ft_bzero(buf, ft_strlen(buf)), NULL);
 	while (b_read > 0 && !ft_strchr(buf, '\n'))
 	{
 		b_read = read(fd, buf, BUFFER_SIZE);
